@@ -1,0 +1,81 @@
+def balanceInquiry():
+    """Displays the current balance."""
+    global balance
+    print("\nYour current balance is:", balance, "\n")
+    repeat()
+
+def cashDepositOrWithdraw():
+    """Handles both cash deposit and withdrawal based on user input."""
+    global balance
+    global transaction_log
+
+    transaction = input("\nEnter the transaction (D <amount> for deposit, W <amount> for withdrawal): ").strip().upper()
+
+    if transaction.startswith("D "):  
+        try:
+            dep_amt = int(transaction.split()[1])
+            balance += dep_amt
+            transaction_log.append(f"D {dep_amt}")
+            print(f"\n{dep_amt} deposited successfully!")
+        except (IndexError, ValueError):
+            print("\nInvalid deposit format! Please use 'D <amount>'.")
+    elif transaction.startswith("W "): 
+        try:
+            with_amt = int(transaction.split()[1])
+            if with_amt > balance:
+                print("\nInsufficient balance!!")
+            else:
+                balance -= with_amt
+                transaction_log.append(f"W {with_amt}")
+                print(f"\n{with_amt} withdrawn successfully!")
+        except (IndexError, ValueError):
+            print("\nInvalid withdrawal format! Please use 'W <amount>'.")
+    else:
+        print("\nInvalid transaction format! Use 'D <amount>' or 'W <amount>'.")
+    balanceInquiry()
+
+def viewTransactionLog():
+    """Displays the transaction log."""
+    global transaction_log
+    print("\nTransaction Log:")
+    if not transaction_log:
+        print("No transactions yet.")
+    else:
+        for log in transaction_log:
+            print(log)
+    repeat()
+
+def repeat():
+    """Prompts the user to select another operation."""
+    print("\n1. Check Balance")
+    print("2. Deposit or Withdraw Cash")
+    print("3. View Transaction Log")
+    print("4. Exit")
+    try:
+        num = int(input("\nEnter your choice: ").strip())
+        if num == 1:
+            balanceInquiry()
+        elif num == 2:
+            cashDepositOrWithdraw()
+        elif num == 3:
+            viewTransactionLog()
+        elif num == 4:
+            print("\nThank you for using SBI ATM! Goodbye!")
+            exit()
+        else:
+            print("\nInvalid Input! Please try again.")
+            repeat()
+    except ValueError:
+        print("\nInvalid Input! Please enter a valid number.")
+        repeat()
+
+
+balance = 5000
+transaction_log = []
+
+
+print("\n", 30 * '*')
+print("\t\tWelcome to SBI ATM")
+print("", 30 * '*', "\n")
+
+repeat()

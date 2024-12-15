@@ -1,0 +1,49 @@
+def radixSort(lst):
+    for i in range(len(percentage)):
+        min = i
+        for j in range(i+1, len(percentage)):
+            if lst[min] > lst[j]:
+                min = j
+        percentage[i], percentage[min] = percentage[min], percentage[i]
+        list1[i], list1[min] = list1[min], list1[i]
+        list2[i], list2[min] = list2[min], list2[i]
+        list3[i], list3[min] = list3[min], list3[i]
+
+def sep():
+    global list1, list2, list3
+    list1.clear()
+    list2.clear()
+    list3.clear()
+    for n in percentage:
+        list1.append(n % 10)
+        list2.append((n // 10) % 10)
+        list3.append((n // 100) % 10)
+
+def topFiveMarks():
+    print("\nTop 5 scores are:")
+    print(percentage[-1:-6:-1])
+
+percentage = []
+list1 = []
+list2 = []
+list3 = []
+num = int(input("Enter number of students: "))
+for i in range(num):
+    per = float(input(f"Enter percentage of the student {i+1}: "))
+    percentage.append(per)
+
+print("Performing sorting using Radix sort")
+
+sep()
+radixSort(list1)
+print("\nPass 1 :Sorted by ones place:", percentage)
+
+sep()
+radixSort(list2)
+print("\nPass 2 :Sorted by tens place:", percentage)
+
+sep()
+radixSort(list3)
+print("\nPass 3 :Sorted by hundreds place:", percentage)
+
+topFiveMarks()

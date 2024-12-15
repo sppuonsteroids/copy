@@ -1,0 +1,29 @@
+def quickSort(percentage):
+    if len(percentage) <= 1:
+        return percentage
+    else:
+        pivot = percentage[len(percentage) // 2]
+        left = [x for x in percentage if x < pivot]
+        middle = [x for x in percentage if x == pivot]
+        right = [x for x in percentage if x > pivot]
+        return quickSort(left) + middle + quickSort(right)
+
+def topFiveMarks():
+    print("\nTop 5 scores are:")
+    print(percentage[-1:-6:-1])
+
+percentage = []
+num = int(input("Enter number of students: "))
+for i in range(num):
+    per = float(input(f"Enter percentage of the student {i + 1}: "))
+    percentage.append(per)
+
+print("\nBefore sorting:")
+print(percentage)
+
+percentage = quickSort(percentage)
+
+print("\nAfter sorting:")
+print(percentage)
+
+topFiveMarks()
